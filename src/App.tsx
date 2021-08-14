@@ -3,6 +3,9 @@ import * as ReactDOM from "react-dom";
 import LoggedOutRouter from "./Routers/MainRouter";
 import GlobalStyle from "./Styles/GlobalStyles";
 import { StylesProvider } from "@material-ui/core/styles";
+import { ApolloProvider } from "@apollo/client";
+import { client } from "./Apollo/Client";
+
 /*
  * 스타일 주입순서의 문제를 해결하는 방법
  * material-ui 에서 제공하는 styling 방법 대신 styled-components의 styling을 사용하기 위해
@@ -11,10 +14,12 @@ import { StylesProvider } from "@material-ui/core/styles";
 function render() {
   ReactDOM.render(
     <React.Fragment>
-      <StylesProvider injectFirst>
-        <GlobalStyle></GlobalStyle>
-        <LoggedOutRouter />
-      </StylesProvider>
+      <ApolloProvider client={client}>
+        <StylesProvider injectFirst>
+          <GlobalStyle></GlobalStyle>
+          <LoggedOutRouter />
+        </StylesProvider>
+      </ApolloProvider>
     </React.Fragment>,
     document.body
   );
